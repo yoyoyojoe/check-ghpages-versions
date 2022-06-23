@@ -18,5 +18,5 @@ jobs:
           
       - name: Create new issue    
         uses: JasonEtco/create-an-issue@v2
-        # env:
-        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.EV_TEST_GITHUB_TOKEN }}
