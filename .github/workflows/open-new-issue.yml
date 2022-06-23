@@ -1,0 +1,22 @@
+name: Create an issue in repo I don't own
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+  issues: write 
+
+jobs:
+  stuff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the "foreign" repo
+        uses: actions/checkout@v3
+        with:
+          repository: ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
+          # token: ${{ secrets.my_pat }}
+          
+      - name: Create new issue    
+        uses: JasonEtco/create-an-issue@v2
+        # env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
