@@ -1,4 +1,4 @@
-name: Create an issue in repo I don't own WITH CLI
+name: USE CLI to open issue in repo I don't own
 
 on: workflow_dispatch
 
