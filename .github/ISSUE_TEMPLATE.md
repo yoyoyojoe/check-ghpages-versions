@@ -1,4 +1,9 @@
-### Overview
+---
+title: Someone just opened a new issue
+assignees: ericvennemeyer
+labels: bug, enhancement
+---
+Who's that knocking on the door, oh no! Here's who: {{ payload.sender.login }}.### Overview
 REPLACE THIS TEXT -Text here that clearly states the purpose of this issue in 2 sentences or less.
 
 ### Action Items
