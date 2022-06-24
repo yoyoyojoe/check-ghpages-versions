@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Check out the "foreign" repo
         uses: actions/checkout@v3
-        with:
-          repository: ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
+#         with:
+#           repository: ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
           # token: ${{ secrets.my_pat }}
           
       - name: Create new issue    
