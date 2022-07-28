@@ -1,12 +1,15 @@
-name: USE CLI to open issue in repo I don't own
+name: USE CLI to open issue
 
 on: workflow_dispatch
 
 jobs:
-  stuff:
+  open_issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Open issue in "foreign" repo
+      - name: Check out this repo
+        uses: actions/checkout@v3
+        
+      - name: Open issue
         run: gh issue create --title "I found a bug" --body "Nothing works"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
