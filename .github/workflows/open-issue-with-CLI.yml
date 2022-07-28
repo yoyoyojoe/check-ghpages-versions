@@ -6,12 +6,12 @@ jobs:
   open_issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out different repo
+      - name: Check out THIS repo
         uses: actions/checkout@v3
-        with:
-          repository: ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
+#         with:
+#           repository: ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
         
-      - name: Open issue in different repo
+      - name: Open issue in DIFFERENT repo
         run: gh issue create --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test --title "I found a bug" --body "Nothing works"
         env:
           GH_TOKEN: ${{ secrets.HFLA_DANIEL_RIDGE_BOT_TEST }}
