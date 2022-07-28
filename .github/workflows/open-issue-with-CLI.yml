@@ -12,8 +12,8 @@ jobs:
           repository: ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
         
       - name: Open issue in different repo
-        run: gh issue create --title "I found a bug" --body "Nothing works"
+        run: gh issue create --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test--title "I found a bug" --body "Nothing works"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.HFLA_DANIEL_RIDGE_BOT_TEST }}
 
-# --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
+
