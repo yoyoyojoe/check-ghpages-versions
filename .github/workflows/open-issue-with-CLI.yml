@@ -10,9 +10,6 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Open issue
-        run: gh issue create --title "I found a bug" --body "Nothing works"
+        run: gh issue create --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test --title "I found a bug" --body "Nothing works"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          # --repo <github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test>
-        
