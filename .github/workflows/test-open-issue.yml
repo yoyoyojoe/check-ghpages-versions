@@ -1,0 +1,23 @@
+name: Test to trigger seprate workflow for issue creation
+
+# Listening for update to the GitHub Pages version file, and testing whether GITHUB_ENV vars from other workflow can be referenced in this workflow
+
+on:
+  push:
+    paths:
+      - 'release-versions/github-pages-gem.txt'
+      
+jobs:
+  open-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Daniel Ridge repo
+        uses: actions/checkout@v3
+        
+      - name: Open new issue
+        run: gh issue create 
+            --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test 
+            --title "This issue created by a separately triggered workflow" 
+            --body "GitHub Pages is now using v${{ env.PAGES_RELEASE_VERSION }} of the GitHub Pages Ruby Gem. You are using v${{ env.PAGES_CURRENT_VERSION }}. Please refer to the ghpages-docker README or Wiki for instructions on how to update."
+        env:
+            GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
