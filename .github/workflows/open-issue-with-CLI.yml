@@ -16,6 +16,6 @@ jobs:
             --body "Nothing works"
         env:
 #           GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
-            GITHUB_TOKEN: ${{ github.token }}
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
