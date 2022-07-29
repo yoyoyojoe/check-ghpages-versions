@@ -3,13 +3,11 @@ name: Check Github Pages Gem Version and Open New Issue on Change
 on: workflow_dispatch
 
 jobs:
-  get-version:
+  get-github-pages-gem-version:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Daniel Ridge repo
         uses: actions/checkout@v3
-#         with:
-#           token: ${{ secrets.REPO_SCOPED_TOKEN }}
 
       - name: Fetch release version
         run: |
@@ -24,8 +22,32 @@ jobs:
         if: steps.git-check.outputs.modified == 'true'
         run: gh issue create 
             --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test 
-            --title "Github Pages Gem Has a New Version" 
-            --body "Please refer to ghpages-docker README or wiki for instructions on how to update."
+            --title "GHPAGES-DOCKER needs to be updated" 
+            --body "GitHub Pages is now using a newer version of the GitHub Pages Gem. Please refer to ghpages-docker README or Wiki for instructions on how to update."
+        env:
+            GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
+            
+  get-ruby-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Daniel Ridge repo
+        uses: actions/checkout@v3
+
+      - name: Fetch release version
+        run: |
+          curl -sL https://pages.github.com/versions.json | \
+          jq -r '."ruby"' > release-versions/ruby.txt
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
+
+      - name: Open new issue
+        if: steps.git-check.outputs.modified == 'true'
+        run: gh issue create 
+            --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test 
+            --title "GHPAGES-DOCKER needs to be updated" 
+            --body "GitHub Pages is now using a newer version of Ruby. Please refer to ghpages-docker README or Wiki for instructions on how to update."
         env:
             GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
   
