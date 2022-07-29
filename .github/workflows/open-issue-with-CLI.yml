@@ -15,7 +15,4 @@ jobs:
             --title "I found a bug" 
             --body "Nothing works"
         env:
-#           GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
-            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
+            GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
