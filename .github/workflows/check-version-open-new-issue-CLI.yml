@@ -9,15 +9,15 @@ jobs:
       - name: Check out Daniel Ridge repo
         uses: actions/checkout@v3
         
-      - name: Set ENV variables for current ghpages-docker version number
+      - name: Set ENV variable for current ghpages-docker version number
         run: echo "CURRENT_VERSION=$(cat release-versions/github-pages-gem.txt)" >> $GITHUB_ENV
         
-      - name: Set ENV variables for current GitHub Pages dependency version number 
-        run: echo "NEW_VERSION=$(curl -sL https://pages.github.com/versions.json | jq -r '."github-pages"')" >> $GITHUB_ENV
+      - name: Fetch release version and save in ENV variable
+        run: echo "RELEASE_VERSION=$(curl -sL https://pages.github.com/versions.json | jq -r '."github-pages"')" >> $GITHUB_ENV
 
-      - name: Fetch release version
+      - name: Write release version to text file
         run: |
-          ${{ env.NEW_VERSION }} > release-versions/github-pages-gem.txt
+          echo ${{ env.RELEASE_VERSION }} > release-versions/github-pages-gem.txt
           
       - name: Check for modified files
         id: git-check
@@ -28,7 +28,7 @@ jobs:
         run: gh issue create 
             --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test 
             --title "GHPAGES-DOCKER needs to be updated" 
-            --body "GitHub Pages is now using v${{ env.NEW_VERSION }} of the GitHub Pages Gem. You are using v${{ env.CURRENT_VERSION }}. Please refer to ghpages-docker README or Wiki for instructions on how to update."
+            --body "GitHub Pages is now using v${{ env.RELEASE_VERSION }} of the GitHub Pages Gem. You are using v${{ env.CURRENT_VERSION }}. Please refer to ghpages-docker README or Wiki for instructions on how to update."
         env:
             GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
             
