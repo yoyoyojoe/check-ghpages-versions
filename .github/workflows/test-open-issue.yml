@@ -5,7 +5,7 @@ name: Test to trigger seprate workflow for issue creation
 on:
   push:
     paths:
-      - 'release-versions/github-pages-gem.txt'
+      - 'release-versions/*'
       
 jobs:
   open-issue:
