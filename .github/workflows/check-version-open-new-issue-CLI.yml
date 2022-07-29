@@ -1,6 +1,9 @@
 name: Check Github Pages Gem Version and Open New Issue on Change
 
-on: workflow_dispatch
+on: 
+  schedule:
+    - cron: '30 22 * * *'
+  workflow_dispatch:
 
 jobs:
   get-github-pages-gem-version:
@@ -25,11 +28,17 @@ jobs:
         
       - name: Commit latest release version
         if: steps.git-check.outputs.modified == 'true'
-        run: |
-          git config --global user.name 'Daniel Ridge'
-          git config --global user.email 'Daniel.Ridge@hackforla.org'
-          git commit -am "New release version"
-          git push
+        run: gh issue create 
+            --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test 
+            --title "This issue created by a separately triggered workflow" 
+            --body "GitHub Pages is now using v${{ env.PAGES_RELEASE_VERSION }} of the GitHub Pages Ruby Gem. You are using v${{ env.PAGES_CURRENT_VERSION }}. Please refer to the ghpages-docker README or Wiki for instructions on how to update."
+        env:
+            GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
+#         run: |
+#           git config --global user.name 'Daniel Ridge'
+#           git config --global user.email 'Daniel.Ridge@hackforla.org'
+#           git commit -am "New release version"
+#           git push
             
   get-ruby-version:
     runs-on: ubuntu-latest
