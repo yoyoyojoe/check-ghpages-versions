@@ -2,7 +2,7 @@ name: Check Github Pages Gem Version and Open New Issue on Change
 
 on: 
   schedule:
-    - cron: '00 * * * *'
+    - cron: '00 0 * * *'
   workflow_dispatch:
 
 jobs:
