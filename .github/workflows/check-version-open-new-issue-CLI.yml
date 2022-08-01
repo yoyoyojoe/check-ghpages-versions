@@ -26,13 +26,26 @@ jobs:
         id: git-check
         run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
         
-      - name: Commit latest release version
+      - name: Commit latest GH-Pages Gem release version
         if: steps.git-check.outputs.modified == 'true'
         run: |
           git config --global user.name 'Daniel Ridge'
           git config --global user.email 'Daniel.Ridge@hackforla.org'
           git commit -am "New release version"
           git push
+  
+  open-issue-pages-gem:
+    runs-on: ubuntu-latest
+    needs: [ get-github-pages-gem-version ]
+    if: needs.get-github-pages-gem-version.outputs.modified == 'true'
+    steps:
+    - name: Open issue for GH-Pages gem update
+      run: gh issue create 
+            --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
+            --title "(This is a test) GHPAGES-DOCKER needs to be updated" 
+            --body "GitHub Pages is now using **v${{ env.PAGES_RELEASE_VERSION }}** of the GitHub Pages Ruby Gem. You are using **v${{ env.PAGES_CURRENT_VERSION }}**. Please refer to the ghpages-docker [Wiki](https://github.com/hackforla/ghpages-docker/wiki#how-do-you-update-ghpages-docker) for instructions on how to update."
+      env:
+          GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
             
   get-ruby-version:
     runs-on: ubuntu-latest
@@ -54,26 +67,13 @@ jobs:
         id: git-check
         run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
 
-      - name: Open new issue
+      - name: Commit latest Ruby release version
         if: steps.git-check.outputs.modified == 'true'
         run: |
           git config --global user.name 'Daniel Ridge'
           git config --global user.email 'Daniel.Ridge@hackforla.org'
           git commit -am "New release version"
           git push
-
-  open-issue-pages-gem:
-    runs-on: ubuntu-latest
-    needs: [ get-github-pages-gem-version ]
-    if: needs.get-github-pages-gem-version.outputs.modified == 'true'
-    steps:
-    - name: Open issue for GH-Pages gem update
-      run: gh issue create 
-            --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
-            --title "(This is a test) GHPAGES-DOCKER needs to be updated" 
-            --body "GitHub Pages is now using **v${{ env.PAGES_RELEASE_VERSION }}** of the GitHub Pages Ruby Gem. You are using **v${{ env.PAGES_CURRENT_VERSION }}**. Please refer to the ghpages-docker [Wiki](https://github.com/hackforla/ghpages-docker/wiki#how-do-you-update-ghpages-docker) for instructions on how to update."
-      env:
-          GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
           
   open-issue-ruby:
     runs-on: ubuntu-latest
