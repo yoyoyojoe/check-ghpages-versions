@@ -1,0 +1,44 @@
+name: Check Ruby Version and Open New Issue on Change
+
+on: 
+  schedule:
+    - cron: '00 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-ruby-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Daniel Ridge repo
+        uses: actions/checkout@v3
+
+      - name: Set ENV variable for current Ruby version number
+        run: echo "RUBY_CURRENT_VERSION=$(cat release-versions/ruby.txt)" >> $GITHUB_ENV
+        
+      - name: Fetch Ruby release version and save in ENV variable
+        run: echo "RUBY_RELEASE_VERSION=$(curl -sL https://pages.github.com/versions.json | jq -r '."ruby"')" >> $GITHUB_ENV
+
+      - name: Write release version to text file
+        run: |
+          echo ${{ env.RUBY_RELEASE_VERSION }} > release-versions/ruby.txt
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
+
+      - name: Commit latest Ruby release version
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'Daniel Ridge'
+          git config --global user.email 'Daniel.Ridge@hackforla.org'
+          git commit -am "New release version"
+          git push
+          
+      - name: Create issue to update Ruby
+        if: steps.git-check.outputs.modified == 'true'
+        run: gh issue create 
+            --repo github.com/ericvennemeyer/HFLA-Daniel-Ridge-Bot-Test
+            --title "(This is a test) GHPAGES-DOCKER needs to be updated" 
+            --body "GitHub Pages is now using **v${{ env.RUBY_RELEASE_VERSION }}** of Ruby. You are using **v${{ env.RUBY_CURRENT_VERSION }}**. Please refer to the [ghpages-docker Wiki](https://github.com/hackforla/ghpages-docker/wiki#how-do-you-update-ghpages-docker) for instructions on how to update."
+        env:
+            GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
