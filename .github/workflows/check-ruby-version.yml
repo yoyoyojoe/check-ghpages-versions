@@ -1,8 +1,10 @@
 name: Check Ruby Version and Open New Issue on Change
 
 on: 
-  schedule:
-    - cron: '00 0 * * *'
+  workflow_run:
+    workflows: ["Check Github Pages Gem Version and Open New Issue on Change"]
+    types: 
+      - completed
   workflow_dispatch:
 
 jobs:
