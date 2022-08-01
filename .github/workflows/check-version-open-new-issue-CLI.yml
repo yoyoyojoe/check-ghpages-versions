@@ -61,7 +61,7 @@ jobs:
 
       - name: Write release version to text file
         run: |
-          echo ${{ env.RUBY_RELEASE_VERSION }} > release-versions/github-pages-gem.txt
+          echo ${{ env.RUBY_RELEASE_VERSION }} > release-versions/ruby.txt
 
       - name: Check for modified files
         id: git-check
