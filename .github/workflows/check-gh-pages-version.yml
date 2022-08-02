@@ -2,7 +2,7 @@ name: Check Github Pages Gem Version and Open New Issue on Change
 
 on: 
   schedule:
-    - cron: '00 0 * * *'
+    - cron: '00 12 * * *'
   workflow_dispatch:
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
         if: steps.git-check.outputs.modified == 'true'
         run: gh issue create 
             --repo github.com/hackforla/ops
-            --title "(This is a test) GHPAGES-DOCKER needs to be updated" 
+            --title "GHPAGES-DOCKER needs to be updated" 
             --body "GitHub Pages is now using **v${{ env.PAGES_RELEASE_VERSION }}** of the GitHub Pages Ruby Gem. You are using **v${{ env.PAGES_CURRENT_VERSION }}**. Please refer to the [ghpages-docker Wiki](https://github.com/hackforla/ghpages-docker/wiki#how-do-you-update-ghpages-docker) for instructions on how to update."
         env:
             GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
