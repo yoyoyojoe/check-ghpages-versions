@@ -42,6 +42,9 @@ jobs:
           --repo github.com/danielridgebot/check-ghpages-versions
           --title "GHPAGES-DOCKER needs to be updated"
           --body "GitHub Pages is now using **v${{ env.RUBY_RELEASE_VERSION }}** of Ruby. You are using **v${{ env.RUBY_CURRENT_VERSION }}**. Please refer to the [ghpages-docker Wiki](https://github.com/hackforla/ghpages-docker/wiki#how-do-you-update-ghpages-docker) for instructions on how to update."
-          --label "feature&#58; maintenance, size&#58; missing, role&#58; Site Reliability Engineer, size&#58; 0.5pt"
+          --label "feature&#58; maintenance"
+          --label "size&#58; missing" 
+          --label "role&#58; Site Reliability Engineer"
+          --label "size&#58; 0.5pt"
         env:
           GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
