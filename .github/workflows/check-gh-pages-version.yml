@@ -41,7 +41,7 @@ jobs:
           --title "GHPAGES-DOCKER needs to be updated"
           --body "GitHub Pages is now using **v${{ env.PAGES_RELEASE_VERSION }}** of the GitHub Pages Ruby Gem. You are using **v${{ env.PAGES_CURRENT_VERSION }}**. Please refer to the [ghpages-docker Wiki](https://github.com/hackforla/ghpages-docker/wiki#how-do-you-update-ghpages-docker) for instructions on how to update."
           --label "good first issue"
-          --label "feature::maintenance"
+          --label format('feature{0} maintenance', ':')
 #           --label "size':' missing" 
 #           --label "role':' Site Reliability Engineer"
 #           --label "size':' 0.5pt"
