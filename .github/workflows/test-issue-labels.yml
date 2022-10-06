@@ -1,4 +1,4 @@
-name: Create sample issue lables
+name: Create sample issue labels
 
 on:
   workflow_dispatch:
@@ -15,6 +15,6 @@ jobs:
           --repo github.com/danielridgebot/check-ghpages-versions
           --title "This issue has been created to test out sample labels"
           --body "Have the labels been created successfully? Are they properly formatted?"
-          --label "feature&#58; maintenance, size&#58; missing, role&#58; Site Reliability Engineer, size&#58; 0.5pt"
+          --label "feature%3A+maintenance, size%3A missing, role%3A Site Reliability Engineer, size%3A 0.5pt"
         env:
           GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
