@@ -11,10 +11,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create issue with sample labels
-        run: gh issue create
+        run: 'gh issue create
           --repo github.com/danielridgebot/check-ghpages-versions
           --title "This issue has been created to test out sample labels"
           --body "Have the labels been created successfully? Are they properly formatted?"
-          --label "feature: maintenance, size: missing, role: Site Reliability Engineer, size: 0.5pt"
+          --label "feature: maintenance, size: missing, role: Site Reliability Engineer, size: 0.5pt"'
         env:
           GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
