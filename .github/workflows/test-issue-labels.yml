@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Create test issue:
+  Create-test-issue:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Daniel Ridge repo
