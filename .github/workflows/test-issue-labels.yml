@@ -1,0 +1,21 @@
+name: Create sample issue lables
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Create test issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Daniel Ridge repo
+        uses: actions/checkout@v3
+
+      - name: Create issue with sample labels
+        if: steps.git-check.outputs.modified == 'true'
+        run: gh issue create
+          --repo github.com/danielridgebot/check-ghpages-versions
+          --title "This issue has been created to test out sample labels"
+          --body "Have the labels been created successfully? Are they properly formatted?"
+          --label "good first issue"
+        env:
+          GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
