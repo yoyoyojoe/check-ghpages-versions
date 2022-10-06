@@ -38,9 +38,10 @@ jobs:
 
       - name: Create issue to update Ruby
         if: steps.git-check.outputs.modified == 'true'
-        run: gh issue create
+        run: 'gh issue create
           --repo github.com/hackforla/ops
           --title "GHPAGES-DOCKER needs to be updated"
           --body "GitHub Pages is now using **v${{ env.RUBY_RELEASE_VERSION }}** of Ruby. You are using **v${{ env.RUBY_CURRENT_VERSION }}**. Please refer to the [ghpages-docker Wiki](https://github.com/hackforla/ghpages-docker/wiki#how-do-you-update-ghpages-docker) for instructions on how to update."
+          --label "feature: maintenance,feature: docker,role: Site Reliability Engineer,size: 0.5pt"'
         env:
           GH_TOKEN: ${{ secrets.Daniel_Ridge_PAT }}
