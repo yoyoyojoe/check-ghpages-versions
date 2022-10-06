@@ -11,7 +11,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create issue with sample labels
-        if: steps.git-check.outputs.modified == 'true'
         run: gh issue create
           --repo github.com/danielridgebot/check-ghpages-versions
           --title "This issue has been created to test out sample labels"
